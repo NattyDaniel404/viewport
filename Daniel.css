@@ -42,9 +42,7 @@ main, header, footer {
 }
 
 header, footer { padding: 1em; }
-
 main { max-width: 1795px; }
-
 
 /* ----- DARK MODE PREFERENCE ----- */
 @media (prefers-color-scheme: dark) {
@@ -55,7 +53,11 @@ main { max-width: 1795px; }
 
 /* ----- HEADINGS ----- */
 h1, h2, h3, h4 { font-weight: bold; }
-h1 { font-size: 2em; margin: 0.5em 0; display: inline; }
+h1 {
+  font-size: 2em; margin: 0.5em 0; display: inline;
+  color: var(--green);            /* Title heading green */
+}
+h2, h3, h4 { color: var(--blue); } /* Other headings blue */
 h2 { font-size: 1.75em; display: inline; }
 
 /* ----- IMAGES ----- */
@@ -73,22 +75,24 @@ img {
   display: inline-block;
   margin: 0 0.5em;
   overflow: visible;
-}
 
-/* Only apply the variable-font animation when supported */
-@supports (font-variation-settings: "TIME" 1) {
-  @keyframes icon-animation {
-    0% { font-variation-settings: "TIME" 1; }
-    100% { font-variation-settings: "TIME" 100; }
-  }
-  .icon {
-    animation: icon-animation 1s ease-in-out infinite;
-  }
+  /* baseline so the axis exists before animation starts */
+  font-variation-settings: "TIME" 1;
+  will-change: font-variation-settings;
 }
 
 footer .icon { font-size: 1em; }
 
-/* ----- REDUCED MOTION (disable animation) ----- */
+/* Use a broad supports check so browsers actually enter this block */
+@supports (font-variation-settings: normal) {
+  @keyframes icon-animation {
+    0%   { font-variation-settings: "TIME" 1; }
+    100% { font-variation-settings: "TIME" 100; }
+  }
+  .icon { animation: icon-animation 1s ease-in-out infinite; }
+}
+
+/* ----- REDUCED MOTION (disable animation for those who prefer it) ----- */
 @media (prefers-reduced-motion: reduce) {
   .icon { animation: none !important; }
 }
