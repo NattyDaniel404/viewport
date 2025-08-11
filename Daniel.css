@@ -44,20 +44,22 @@ main, header, footer {
 header, footer { padding: 1em; }
 main { max-width: 1795px; }
 
+/* Header stays green with black text at all sizes/themes */
+header {
+  background-color: var(--green);
+  color: var(--black);
+}
+
 /* ----- DARK MODE PREFERENCE ----- */
 @media (prefers-color-scheme: dark) {
   body { background-color: var(--dark-gray); color: var(--white); }
-  header, footer { background-color: var(--black); }
+  /* keep header as-is (green/black) in dark mode */
   section { background-color: var(--blue-gray); }
 }
 
 /* ----- HEADINGS ----- */
 h1, h2, h3, h4 { font-weight: bold; }
-h1 {
-  font-size: 2em; margin: 0.5em 0; display: inline;
-  color: var(--green);            /* Title heading green */
-}
-h2, h3, h4 { color: var(--blue); } /* Other headings blue */
+h1 { font-size: 2em; margin: 0.5em 0; display: inline; }
 h2 { font-size: 1.75em; display: inline; }
 
 /* ----- IMAGES ----- */
@@ -76,14 +78,12 @@ img {
   margin: 0 0.5em;
   overflow: visible;
 
-  /* baseline so the axis exists before animation starts */
   font-variation-settings: "TIME" 1;
   will-change: font-variation-settings;
 }
 
 footer .icon { font-size: 1em; }
 
-/* Use a broad supports check so browsers actually enter this block */
 @supports (font-variation-settings: normal) {
   @keyframes icon-animation {
     0%   { font-variation-settings: "TIME" 1; }
@@ -92,7 +92,7 @@ footer .icon { font-size: 1em; }
   .icon { animation: icon-animation 1s ease-in-out infinite; }
 }
 
-/* ----- REDUCED MOTION (disable animation for those who prefer it) ----- */
+/* ----- REDUCED MOTION (disable animation) ----- */
 @media (prefers-reduced-motion: reduce) {
   .icon { animation: none !important; }
 }
@@ -110,7 +110,8 @@ section { margin: 1em 0; padding: 1em; }
 
 /* ---------- EXTRA SMALL SCREEN STYLES ---------- */
 @media (max-width: 499px) {
-  header, footer { background-color: var(--pink); color: var(--white); }
+  /* footer can still change color by breakpoint */
+  footer { background-color: var(--pink); color: var(--white); }
 
   main {
     display: grid;
@@ -129,7 +130,7 @@ section { margin: 1em 0; padding: 1em; }
 
 /* ---------- SMALL SCREEN STYLES ---------- */
 @media (min-width: 500px) and (max-width: 600px) {
-  header, footer { background-color: var(--lime-green); color: var(--dark-gray); }
+  footer { background-color: var(--lime-green); color: var(--dark-gray); }
 
   main {
     display: grid;
@@ -147,7 +148,7 @@ section { margin: 1em 0; padding: 1em; }
 
 /* ---------- MEDIUM SCREEN STYLES ---------- */
 @media (min-width: 601px) and (max-width: 1024px) {
-  header, footer { background-color: var(--black); color: var(--white); }
+  footer { background-color: var(--black); color: var(--white); }
 
   main {
     display: grid;
@@ -164,7 +165,8 @@ section { margin: 1em 0; padding: 1em; }
 
 /* ---------- LARGE SCREEN STYLES ---------- */
 @media (min-width: 1025px) and (max-width: 1440px) {
-  header, footer { background-color: var(--lime-green); color: var(--dark-gray); }
+  /* header remains green; no override here */
+  footer { background-color: var(--lime-green); color: var(--dark-gray); }
 
   h1, h2 { display: inline-block; }
   section { background-color: var(--blue); }
@@ -186,7 +188,7 @@ section { margin: 1em 0; padding: 1em; }
 
 /* ---------- EXTRA LARGE SCREEN STYLES ---------- */
 @media (min-width: 1441px) {
-  header, footer { background-color: var(--orange); padding-left: 5%; }
+  footer { background-color: var(--orange); padding-left: 5%; color: var(--dark-gray); }
 
   main {
     display: grid;
